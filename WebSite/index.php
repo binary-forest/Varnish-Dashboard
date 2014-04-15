@@ -506,12 +506,12 @@
 
 
                     // console.log('n_objwrite ' + data.n_objwrite.value);
-                    var currentHits = data.n_objwrite.value - prevHits;
+                    var currentHits = data.client_req.value - prevHits;
                     
                     // console.log('currentHits : ' + currentHits);
                     // console.log('prevHits '+prevHits);
                     
-                    prevHits = data.n_objwrite.value;
+                    prevHits = data.client_req.value;
                     if (runnumber > 0) {
                         hitRateData.push([dateStamp.getTime(), currentHits]);
                     } else {
