@@ -1,0 +1,11 @@
+sub vcl_recv {
+  # If the request host is example.com AND
+  # the URL starts with /sites/default/files AND
+  # the HTTP referer is set AND the referer is not http://example.com
+  if (req.http.host ~ "example.com" &&
+    req.url ~ "^/sites/default/files/" &&
+    (req.http.referer && req.http.referer !~ "^http://example.com")) {
+      # Rewrite the request URL to the explanation image.
+      set req.url = "http://example.com/sites/all/themes/my_theme/images/image-hotlinking-disabled.jpg";
+  }
+}

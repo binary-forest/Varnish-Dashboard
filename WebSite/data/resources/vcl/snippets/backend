@@ -1,0 +1,10 @@
+backend server1 {
+  .host = "server1.example.com";
+  .probe = {
+         .url = "/";
+         .interval = 5s;
+         .timeout = 1 s;
+         .window = 5;
+         .threshold = 3;
+    }
+  }

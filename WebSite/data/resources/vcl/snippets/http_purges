@@ -1,0 +1,29 @@
+acl purge {
+        "localhost";
+        "192.168.55.0"/24;
+}
+
+sub vcl_recv {
+        # allow PURGE from localhost and 192.168.55...
+
+        if (req.request == "PURGE") {
+                if (!client.ip ~ purge) {
+                        error 405 "Not allowed.";
+                }
+                return (lookup);
+        }
+}
+
+sub vcl_hit {
+        if (req.request == "PURGE") {
+                purge;
+                error 200 "Purged.";
+        }
+}
+
+sub vcl_miss {
+        if (req.request == "PURGE") {
+                purge;
+                error 200 "Purged.";
+        }
+

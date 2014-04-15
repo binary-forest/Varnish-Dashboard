@@ -1,0 +1,15 @@
+if (! req.http.Host)
+ {
+   error 404 "Need a host header";
+ }
+ set req.http.Host = regsub(req.http.Host, "^www\.", "");
+ set req.http.Host = regsub(req.http.Host, ":80$", "");
+
+ if (req.http.Host == "something.com")
+ {
+   include "/etc/varnish/site-something.com.vcl";
+ }
+ elsif (req.http.Host == "somethingelse.com")
+ {
+   include "/etc/varnish/site-somethingelse.com.vcl";
+ }

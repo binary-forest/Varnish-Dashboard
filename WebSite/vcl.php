@@ -202,44 +202,6 @@
         });
     })
 
-    // Hook up ACE editor to all textareas with data-editor attribute
-    // $(function () {
-    //     $('div[data-editor]').each(function () {
-    //         var textarea = $(this);
-
-    //         var mode = textarea.data('editor');
- 
-    //         var editDiv = $('<div>', {
-    //             position: 'absolute',
-    //             width: "100%",
-    //             height: editorDefaultHeight,
-    //             'class': textarea.attr('class')
-    //         }).insertBefore(textarea);
-
-    //         // $('.ace_editor').width("100%");
-    //         // $('.ace_editor').height(testheight);
- 
-    //         textarea.css('visibility', 'hidden');
-
-    //         editor = ace.edit(editDiv[0]);
-    //         editor.renderer.setShowGutter(true);
-    //         editor.getSession().setValue(textarea.val());
-    //         editor.setPrintMarginColumn(false);
-
-    //         editor.setTheme("ace/theme/monokai");
-    //         editor.getSession().setMode("ace/mode/" + mode);
-
-    //         editor.session.setUseWrapMode(true);
-    //         editor.session.setWrapLimitRange(null, null);
-
-    //          console.log(editor);
-    //         // // copy back to textarea on form submit...
-    //         // textarea.closest('form').submit(function () {
-    //         //     textarea.val(editor.getSession().getValue());
-    //         // })
- 
-    //     });
-    // });
     $(function () {
             editor = ace.edit('vcl-textarea');
             editor.renderer.setShowGutter(true);

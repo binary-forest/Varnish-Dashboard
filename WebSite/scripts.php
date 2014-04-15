@@ -34,7 +34,7 @@
         <!-- daterangepicker -->
         <script src="js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
 
-
+        <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
         <!-- These JavaScript files will be created later on in the tutorial -->
         <!-- <script src="js/google/hello_analytics_api_v3_auth.js"></script> -->
         <!-- <script src="js/google/hello_analytics_api_v3.js"></script> -->
