@@ -53,9 +53,10 @@ Go to your Website directory under data and install the SLIM framework (composer
 Update your index.php file to point to the nodejs application and update the key used
 
 Go to your Backend Server directory and install the required nodeJS modules:
-sudo npm install socket.io
-sudo npm install net-snmp
-sudo npm install request
-
+<ul>
+<li>sudo npm install socket.io</li>
+<li>sudo npm install net-snmp</li>
+<li>sudo npm install request</li>
+</ul>
 
 Note for the development I'm giving the scripts access to the varnish secret file, you can update the scripts to use: -S copy_of_secret_file -T localhost:6082 to access the varnishadm
