@@ -112,7 +112,7 @@
 
                 var socket = io.connect('updatetonodeserver', {
                 /* Pass the authentication token as a URL parameter */
-                    query: $.param({token: 'randomtoken'})
+                    query: $.param({token: 'randometokens'})
                 /* My application is more complicated, so I use jQuery's .param utility to convert the Object to an URL string e.g. 'token=abc&etc=cde' */
                 });
 
