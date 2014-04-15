@@ -20,3 +20,16 @@ The following components are used in the dashboard
 </ul>
 
 This is provided as is and is still in development not in full release status.
+
+<h2>Additional NodeJS modules required</h2>
+<ul>
+	<li>socket.io</li>
+	<li>net-snmp</li>
+	<li>request</li>
+</ul>
+
+<h2>Additional php requirements</h2>
+<ul>
+	<li>slim</li>
+	<li>composer</li>
+</ul>
