@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Varnish Dashbaord</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <!-- bootstrap 3.0.2 -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- font Awesome -->
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <!-- Ionicons -->
+        <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
+
+        <link href="css/dashboard.css" rel="stylesheet" type="text/css" />
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="skin-black">
+        <!-- header logo: style can be found in header.less -->
+        <header class="header">
+            <a href="index.html" class="logo">
+                <!-- Add the class icon to your logo image or logo icon to add the margining -->
+                Varnish Dashboard
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                
+        </header>
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="left-side sidebar-offcanvas">                
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <ul class="sidebar-menu">
+                        <li class="">
+                            <a href="index.html">
+                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="vcl.html">
+                                <i class="fa fa-dashboard"></i> <span>VCL</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="ban.html">
+                                <i class="fa fa-dashboard"></i> <span>Ban</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="right-side">                
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>VCL Editor <small></small></h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active">VCL Editor</li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="box-header" data-toggle="tooltip" title="VCL Editor">
+                                    <!-- tools box -->
+                                    <div class="pull-right box-tools">
+                                        <!-- <button class="btn btn-primary btn-sm refresh-btn" id='vcl-list-refresh' data-toggle="tooltip" title="Reload"><i class="fa fa-refresh"></i></button> -->
+                                        <button class="btn btn-primary btn-sm" id='vcl-delete-entry' data-toggle="tooltip" title="Delete VCL File"><i class="fa fa-unlink"></i></button>
+                                        <button class="btn btn-primary btn-sm" id='vcl-new-entry'  data-toggle="modal"  data-target="#myModal" title="New VCL File"><i class="fa fa-save"></i></button>
+                                        <button class="btn btn-primary btn-sm" data-widget='collapse' data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                                        <button class="btn btn-primary btn-sm" data-widget='remove' data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                                    </div><!-- /. tools -->
+                                    <i class="fa fa-globe"></i>
+                                    <h3 class="box-title">VCL Editor </h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="vcl-textarea" name="my-xml-editor" data-editor="vcl" rows="0" cols="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="list-group" id="snippet-list">
+                                            </div>
+                                        </div>
+
+                                         <div class="col-md-8"><div id="vcl-snippet" name="my-xml-editor" data-editor="vcl" rows="0" cols="0"></div>
+                                        </div>
+
+                                    </div>
+                                </div><!-- /.box-body-->
+                            </div><!-- /.box -->
+
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="box-header" data-toggle="tooltip" title="VCL configuration files">
+                                    <!-- tools box -->
+                                    <div class="pull-right box-tools">
+                                        <button class="btn btn-primary btn-sm refresh-btn" id='vcl-list-refresh' data-toggle="tooltip" title="Reload"><i class="fa fa-refresh"></i></button>
+                                        
+                                        <button class="btn btn-primary btn-sm" data-widget='remove' data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                                    </div><!-- /. tools -->
+                                    <i class="fa fa-file-o"></i>
+                                    <h3 class="box-title">VCL <small></small></h3>
+                                </div><!-- /.box-header -->
+
+
+                                <div class="panel-group" id="vcl-accordion">
+                                </div>
+
+
+                            </div><!-- /.box -->
+
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+
+                </section><!-- /.content -->
+            </aside><!-- /.right-side -->
+        </div><!-- ./wrapper -->
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Create New VCL Entry</h4>
+              </div>
+              <div class="modal-body">
+                    <form role="form" id='newVCLForm' >
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">VCL Name</label>
+                                <input type="text" class="form-control" id="inputVCLName" placeholder="VCL Name">
+                            </div>
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="submit" id='vclCreate' class="btn btn-primary" data-dismiss="modal">Create VCL</button>
+                        </div>
+                    </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- jQuery 2.0.2 -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <!-- jQuery UI 1.10.3 -->
+        <script src="js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
+        <!-- Bootstrap -->
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!-- AdminLTE App -->
+        <script src="js/AdminLTE/app.js" type="text/javascript"></script>
+        <!-- Sparkline -->
+
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+
+        <script src="js/ace/ace.js"></script>
+        <script>
+            var socket = io.connect('codeblack.eu:3001');
+                
+            var editor;
+            var snippet;
+            var editorDefaultHeight = "500px";
+            var editVCLName = "";
+            var fileContent = "";
+
+            var serverPath = "http://codeblack.eu:3000";
+
+            function getVCL(vclName) {
+                console.log('update editor for vcl : ' + vclName );
+                $.getJSON( serverPath + '/vcl/'+vclName, function( data ) {
+
+                    console.log(data);
+                    editor.setValue("");
+                    editor.insert(data.vclDetails);
+                    editor.scrollToLine(0,false,false);
+                    console.log( ">>vcl finish");
+                })
+                .fail(function() {
+                    console.log( ">>>vcl fail" );
+                })
+                .always(function() {
+                    console.log( ">>>vcl always" );
+                });
+            }
+
+            function getVCLFile(vclName) {
+                console.log('update editor for file vcl : ' + vclName );
+                $.getJSON( serverPath + '/vcl/static/'+vclName, function( data ) {
+
+                    console.log(data.vclDetails);
+                    editor.setValue("");
+                    editor.insert(data.vclDetails);
+                    editor.scrollToLine(0,false,false);
+                    console.log( ">>vcl finish");
+                })
+                .fail(function() {
+                    console.log( ">>>vcl fail" );
+                })
+                .always(function() {
+                    console.log( ">>>vcl always" );
+                });
+            }
+
+            function getSnippets() {
+                $.getJSON( serverPath + '/vcl/snippet', function( dataIn ) {
+                    var data = jQuery.parseJSON(dataIn);
+                    $('#snippet-list').empty();
+                    for (var i=0; i<data.length; i++) {
+                        $('#snippet-list').append('<a href="#" data-snippet="'+data[i]+'" class="snippet-item list-group-item">'+data[i]+'</a>');
+                    }
+                    console.log( ">>snippet finish");
+                })
+                .fail(function() {
+                    console.log( ">>>snippet fail" );
+                })
+                .always(function() {
+                    console.log( ">>>snippet always" );
+                });
+            }
+
+            getSnippets();
+            getVCLs();
+
+
+            $('#snippet-list').click(function() {
+                var snippetClicked = $(this).data('snippet');
+                $('#snippet-list').children('a').each(function () {
+                    $(this).removeClass('active');
+                });
+
+                console.log('snippet cliced on : ' + event.target.text + ':' + snippetClicked);
+                event.target.className += " active";
+                $.getJSON( serverPath + '/vcl/snippet/' + event.target.text, function( dataIn ) {
+                    var data = jQuery.parseJSON(dataIn);
+                    snippet.setValue("");
+                    snippet.insert(data);
+                    snippet.scrollToLine(0,false,false);
+                    console.log( ">>vcl finish");
+                })
+                .fail(function() {
+                    console.log( ">>>vcl fail" );
+                })
+                .always(function() {
+                    console.log( ">>>vcl always" );
+                });
+            })
+
+            $(function () {
+                editor = ace.edit('vcl-textarea');
+                editor.renderer.setShowGutter(true);
+                editor.getSession().setValue('');
+                editor.setPrintMarginColumn(false);
+
+                editor.setTheme("ace/theme/monokai");
+                editor.getSession().setMode("ace/mode/vcl");
+
+                editor.session.setUseWrapMode(true);
+                editor.session.setWrapLimitRange(null, null);
+
+                console.log(editor);
+
+                snippet = ace.edit('vcl-snippet');
+                snippet.renderer.setShowGutter(true);
+                snippet.getSession().setValue('');
+                snippet.setPrintMarginColumn(false);
+
+                snippet.setTheme("ace/theme/monokai");
+                snippet.getSession().setMode("ace/mode/vcl");
+
+                snippet.session.setUseWrapMode(true);
+                snippet.session.setWrapLimitRange(null, null);
+
+                console.log(snippet);
+            });
+
+            function getVCLs() {
+                $.getJSON( serverPath + '/vcl', function( data ) {
+                    $('#vcl-accordion').empty();
+                    $.each( data, function( key, val ) {
+                        console.log(val);
+                        console.log(val.vclName);
+                        
+                        console.log(">>>>>> " + key + " >>>>> " + val.vclName + " <<<<<<");
+                        if (val.vclState == 'active') { panelclass='success';} else {panelclass='default';}
+
+                        if (val.vclState == 'available') {
+                           var editBox = '<a href="#" data-vcltype="'+val.vclState+'" title="Activate" data-vclname="'+val.vclName+'"><i class="fa fa-check"></i></a><a href="#" data-vcltype="'+val.vclState+'" title="Edit" data-vclname="'+val.vclName+'"><i class="fa fa-pencil"></i></a></span>';
+                        } else {
+                            var editBox = '<a href="#" data-vcltype="'+val.vclState+'" title="Edit" data-vclname="'+val.vclName+'"><i class="fa fa-pencil"></i></a></span>';
+                        }
+                        $('#vcl-accordion').append('\
+                      <div class="panel panel-'+panelclass+'"> \
+                        <div class="panel-heading"> \
+                          <span class="pull-right"> \
+                          '+editBox+' \
+                          <h4 class="panel-title"> \
+                            <a data-toggle="collapse" data-parent="#vcl-accordion" href="#vcl-'+val.vclName+'-collapse"> \
+                              ' + val.vclName + ' <small>' + val.vclState + '</small> \
+                            </a> \
+                          </h4> \
+                        </div> \
+                        <div id="vcl-'+val.vclName+'-collapse" class="panel-collapse collapse out"> \
+                          <div class="panel-body"> \
+                            <pre>\
+        not yet added \
+                            </pre> \
+                          </div> \
+                        </div> \
+                      </div> \
+                            ');
+                    });
+                    console.log( ">>vcl finish");
+                    getStaticVCLs();
+                })
+                .fail(function() {
+                    console.log( ">>>vcl fail" );
+                })
+                .always(function() {
+                    console.log( ">>>vcl always" );
+                });
+            }
+
+
+            function getStaticVCLs() {
+                $.getJSON( serverPath + '/vcl/static', function( data ) {
+                    $.each( data, function( key, val ) {
+                        console.log(val);
+                        console.log(val.vclName);
+                        if (val.vclState == 'active') { panelclass='success';} else {panelclass='default';}
+
+                        if (val.vclState == 'file') {
+                           var editBox = '<a href="#" data-vcltype="'+val.vclState+'" title="Load" data-vclname="'+val.vclName+'"><i class="fa fa-check"></i></a><a href="#" data-vcltype="'+val.vclState+'" title="Edit" data-vclname="'+val.vclName+'"><i class="fa fa-pencil"></i></a></span>';
+                        } else {
+                            var editBox = '<a href="#" data-vcltype="'+val.vclState+'" title="Edit" data-vclname="'+val.vclName+'"><i class="fa fa-pencil"></i></a></span>';
+                        }
+                        $('#vcl-accordion').append('\
+                      <div class="panel panel-'+panelclass+'"> \
+                        <div class="panel-heading"> \
+                          <span class="pull-right"> \
+                          '+editBox+' \
+                          <h4 class="panel-title"> \
+                            <a data-toggle="collapse" data-parent="#vcl-accordion" href="#vcl-'+val.vclName+'-collapse"> \
+                              ' + val.vclName + ' <small>' + val.vclState + '</small> \
+                            </a> \
+                          </h4> \
+                        </div> \
+                        <div id="vcl-'+val.vclName+'-collapse" class="panel-collapse collapse out"> \
+                          <div class="panel-body"> \
+                            <pre>\
+        ' + val[3] + ' \
+                            </pre> \
+                          </div> \
+                        </div> \
+                      </div> \
+                            ')
+                    });
+                    console.log( ">>vcl finish");
+                })
+                .fail(function() {
+                    console.log( ">>>vcl fail" );
+                })
+                .always(function() {
+                    console.log( ">>>vcl always" );
+                });
+
+            }
+
+
+            function activateVCL(vclName) {
+                var jqxhr = $.ajax( {
+                    url: serverPath + '/vcl/'+vclName+'/activate',
+                    type: 'PUT',
+                    async: true,
+                    crossDomain: true,
+                    dataType: "json"
+                } )
+                .done(function(data) {
+                    console.log(data);
+                    if (data.status == 'success') {
+                        getVCLs();
+                    }
+                    console.log( ">>vcl activate finish");
+                })
+                .fail(function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("post failed : " + textStatus + ' : ' + errorThrown)
+                })
+                .always(function() {
+                    console.log("post always");
+                });
+            }
+
+            function loadVCL(vclName) {
+                var jqxhr = $.ajax( {
+                    url: serverPath + '/vcl/static/'+vclName,
+                    type: 'PUT',
+                    async: true,
+                    crossDomain: true,
+                    dataType: "json"
+                } )
+                .done(function(data) {
+                    console.log(data);
+                    if (data.status == 'success') {
+                        getVCLs();
+                    }
+                    console.log( ">>vcl activate finish");
+                })
+                .fail(function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("post failed : " + textStatus + ' : ' + errorThrown)
+                })
+                .always(function() {
+                    console.log("post always");
+                });
+            }
+
+            $('#vcl-accordion').click(function() {
+                var snippetClicked = $(event.target).parent().data('vclname');
+                var snippetTypeClicked = $(event.target).parent().data('vcltype');
+                
+                if ($(event.target).is('i')) {
+                    editVCLName = [snippetClicked,snippetTypeClicked];
+                    console.log('edit : ' + snippetClicked + ' : ' + snippetTypeClicked);
+                    if (event.target.className == 'fa fa-check') {
+                        if (snippetTypeClicked == 'available') {
+                            activateVCL(snippetClicked);
+                        } else if (snippetTypeClicked == 'file') {
+                            loadVCL(snippetClicked);
+                        }
+                    } else if (snippetTypeClicked == 'file') {
+                        getVCLFile(snippetClicked);
+                    } else {
+                        getVCL(snippetClicked);
+                    }
+                }
+            })
+
+            $('#vcl-new-entry').click(function(){
+                console.log('new VCL file required');
+            })
+
+            $('#vclCreate').click(function() {
+                console.log( 'saving vcl data : ' + $('#inputVCLName').val());
+                var newVCLName = $('#inputVCLName').val();
+
+                var jqxhr = $.ajax( {
+                    url: serverPath + '/vcl/' + newVCLName,
+                    type: 'POST',
+                    contentType: 'application/json', 
+                    data: '{"vclContent": ' + JSON.stringify(editor.getSession().getValue()) + '}'
+                } )
+                .done(function(data) {
+                    console.log(data);
+                    getVCLs();
+                })
+                .fail(function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("post failed : " + textStatus + ' : ' + errorThrown)
+                })
+                .always(function() {
+                    console.log("post always");
+                });
+
+                editVCLName = [$('#inputVCLName').val(), 'file'];
+                $( '#newVCLForm' ).each(function(){
+                    this.reset();
+                });
+            })
+
+            $('#vcl-delete-entry').click(function() {
+                console.log('Deleting VCL entry :' + editVCLName[0] + ' type : ' + editVCLName[1]);
+                var vclType = '';
+                if (editVCLName[1] == 'file') {
+                    vclType = 'static/';
+                }
+
+                var jqxhr = $.ajax( {
+                    url: serverPath+ '/vcl/' +vclType+editVCLName[0],
+                    type: 'delete',
+                    data: JSON.stringify({
+                        "vclName": editVCLName[0],
+                        "vclType": editVCLName[1]
+                        }),
+                    async: true,
+                    crossDomain: true,
+                    dataType: "json"
+                } )
+                .done(function(data) {
+                    console.log('data: ' + data);
+                    console.log(data);
+                    getVCLs();
+                })
+                .fail(function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("post failed : " + textStatus + ' : ' + errorThrown)
+                })
+                .always(function() {
+                    console.log("post always");
+                });
+
+                editVCLName = [$('#inputVCLName').val(), 'file'];
+                $( '#newVCLForm' ).each(function(){
+                    this.reset();
+                });
+
+            })
+
+
+            $('#vcl-list-refresh').click(function() {
+                console.log('Refreshing vcl ');
+                getVCLs();
+            })
+
+
+        </script>
+            
+    </body>
+</html>
