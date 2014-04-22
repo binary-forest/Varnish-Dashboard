@@ -467,7 +467,9 @@
                 preClientReqTime = entryTimestamp;
                 preClientReq = data["MAIN.client_req"].value;
 
-                HitRatio.push([entryTimestamp , data["MAIN.cache_hit"].value]);
+                // HitRatio.push([entryTimestamp , data["MAIN.cache_hit"].value]);
+                var averageRatio = data["MAIN.cache_hit"].value / ( data["MAIN.cache_hit"].value + data["MAIN.cache_miss"].value )*100;
+                HitRatio.push([entryTimestamp , averageRatio]);
 
                 var bytesSent = ( data["MAIN.s_resp_hdrbytes"].value + data["MAIN.s_resp_bodybytes"].value - preBytesSent ) ;
                 console.log('bytes sent ' +data["MAIN.s_resp_hdrbytes"].value + ' : ' +  data["MAIN.s_resp_bodybytes"].value + ' : ' + bytesSent) / 5;
